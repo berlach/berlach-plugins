@@ -26,8 +26,8 @@ struct GranularChorus : public Unit
 };
 
 
- extern "C"
- {
+extern "C"
+{
      void load(InterfaceTable *inTable);
      int api_version(void);
 
@@ -36,7 +36,7 @@ struct GranularChorus : public Unit
 }
 
 
- int api_version(void) 
+int api_version(void) 
 { 
     return sc_api_version; 
 }
@@ -107,12 +107,12 @@ void GranularChorus_next (GranularChorus *unit, int inNumSamples)
         int outidx2 = (int) outidxf2;
         float frac2 = outidxf2 - (float) outidx2;
 
-
         if (fade>=2.f) {
             // start grain 1
             double outphs = (1.f-frac) * delayphs[outidx&8191] + frac * delayphs[(outidx+1)&8191];
             int dist = idx - outidx;
             int ideal = (int)(period*2);
+
             if (dist > ideal) {
                 outidxf += period;  
                 dist = idx - (int) outidxf;
@@ -126,24 +126,30 @@ void GranularChorus_next (GranularChorus *unit, int inNumSamples)
                     outidxf -= period;  
                 }
             }
+
             outidx = (int) outidxf;
             double phs1 = delayphs[(outidx)&8191];
             double phs2 = delayphs[(outidx+1)&8191];
+
             if ((phs1 > outphs) || (phs2 < outphs) || ((phs2-phs1) < 0.00003)) {
                 frac = outidxf - (float) outidx;
             } else {
                 frac = (outphs - phs1) / (phs2-phs1);
             }
+
             outidxf = ((double) outidx) + frac;
             unit->m_trigready = 1;
             ff = fade = 0.f;
+
         } else if (fade>=1.f) { 
+
             if (unit->m_trigready) {
-            // start grain 2
+                // start grain 2
                 unit->m_trigready = 0;
                 double outphs = (1.f-frac2) * delayphs[outidx2&8191] + frac2 * delayphs[(outidx2+1)&8191];
                 int dist = idx - outidx2;
                 int ideal = (int)(period*3);
+
                 if (dist > ideal) {
                     outidxf2 += period;  
                     dist = idx - (int) outidxf2;
@@ -157,14 +163,17 @@ void GranularChorus_next (GranularChorus *unit, int inNumSamples)
                         outidxf2 -= period;  
                     }
                 }
+
                 outidx2 = (int) outidxf2;
                 double phs1 = delayphs[(outidx2)&8191];
                 double phs2 = delayphs[(outidx2+1)&8191];
+
                 if ((phs1 >= outphs) || (phs2 < outphs) || ((phs2-phs1) < 0.00003)) {
                     frac2 = outidxf2 - (float) outidx2;
                 } else {
                     frac2 = (outphs - phs1) / (phs2-phs1);
                 }
+
                 outidxf2 = ((double) outidx2) + frac2;
             }
             ff = 2.f-fade; 

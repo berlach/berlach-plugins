@@ -556,6 +556,7 @@ load(InterfaceTable *inTable)
     ft = inTable;
     DefineSimpleUnit(AmpAllpass);
     DefineSimpleUnit(SmoothRMS);
+    DefineSimpleUnit(AmplitudeHold);
     DefineSimpleUnit(UpDownCompressor);
     DefineSimpleUnit(DownCompressor);
     DefineSimpleUnit(UpCompressor);

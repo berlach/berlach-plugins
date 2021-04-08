@@ -213,7 +213,6 @@ SplineHysterisis_next(SplineHysterisis *unit, int inNumSamples)
 ///////////////////////////////////////////////////////////////////////////
 
 
-
 void
 SplineHysterisis4_Ctor(SplineHysterisis4 *unit) 
 {

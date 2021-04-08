@@ -650,7 +650,6 @@ void BitManip4_Ctor(BitManip4 *unit)
 
 
 
-
 static inline float read_lininterp (float *buf, float time)
 {
     int itime = (int) time;
@@ -665,7 +664,6 @@ static inline float read_cubic (float *ptr, float pos)
     float frac = pos - (float) pos;
     return cubicinterp(frac, ptr[ipos], ptr[(ipos+1)] , ptr[(ipos+2)] , ptr[(ipos+3)] );
 }
-
 
 
 static inline float read_cubic_circ(float *ptr, double pos)
