@@ -3,8 +3,10 @@ Berlach Plugins is a collection of plugins for SuperCollider (https://supercolli
 
 Build:
 
+```bash
 mkdir build
 cd build
 cmake ..
 make
+```
 
